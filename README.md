@@ -28,3 +28,5 @@ API Testing: Postman
 
 
 Aura is more than an app – it’s a platform to connect, create, and celebrate. Ready to explore? 🚀
+
+Download the clone and write 'npm install' in your terminal and Explore Aura⚡
