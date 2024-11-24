@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Category</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+
+<body class="container">
+    <h1 align="center" class="display-1">Admin Side</h1>
+    <hr>
+    <div class="container mx-auto mt-5 p-7 m-3">
+        <h1 class="text-2xl font-bold mb-6">Add New Category</h1>
+        <form action="/addcategory" method="post">
+            <input
+                class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-5"
+                type="text" name="categoryName" placeholder="Category Name" required />
+
+            <textarea
+                class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-5"
+                name="categoryDescription" placeholder="Category Description"></textarea>
+
+            <button
+                class="tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                <span class="ml-3">Add Category</span>
+            </button>
+        </form>
+    </div>
+</body>
+
+</html>

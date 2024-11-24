@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+</head>
+<style>
+    body {
+        background-color: #111827;
+    }
+</style>
+
+<body>
+    <%- include('userheader') %>
+  <%- include('sidebar') %>
+    <div class="max-w-full mx-auto p-6 ml-64">
+        <h2 class="text-white text-lg text-center">Admin - Add Image Class for persnolized View</h2>
+        <!-- Form -->
+        <hr class="mb-4 border-gray-600" />
+        <form action="/admin/extra" method="POST" class="mb-4 max-w-xs mx-auto">
+            <input type="text" name="className" placeholder="Enter class name"
+                class="w-full p-4 border border-gray-300 rounded-full mb-3 bg-gray-800 text-white" />
+            <button type="submit"
+                class="w-full bg-gradient-to-r from-blue-600 to-blue-400 text-white p-2 rounded-full hover:from-blue-500 hover:to-blue-300">
+                Submit
+            </button>
+        </form>
+
+
+        <hr class="mb-4 border-gray-600" />
+
+        <!-- Card Row -->
+        <div class="flex flex-wrap justify-center gap-6">
+            <% categories.forEach(category=> { %>
+                <div
+                    class="bg-gradient-to-r from-gray-800 to-gray-700 shadow-md rounded-lg p-4 flex items-center w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-white category-name"
+                            id="category-name-<%= category._id %>">
+                            <%= category.cname %>
+                        </h3>
+                        <input type="text" name="cname" value="<%= category.cname %>"
+                            class="bg-gray-800 text-white border border-gray-500 rounded-md p-1 hidden"
+                            id="edit-input-<%= category._id %>" required>
+
+
+                        <p class="text-gray-400"> <span class="font-bold text-white">
+                                <%= category.count || 0 %>
+                            </span> Post Uploaded </p> <!-- Count display -->
+                        <p class="text-gray-400"><span class="font-bold text-white">
+                                <%= category.downloads || 0 %>
+                            </span>Downloads</p> <!-- Total downloads display -->
+                    </div>
+                    <div class="ml-4 text-right flex items-center">
+                        <button class="text-gray-300 hover:text-white edit-btn" title="Edit"
+                            onclick="toggleEdit('<%= category._id %>')">
+                            <i class="far fa-edit"></i>
+                        </button>
+                        <form action="/admin/delete-category/<%= category._id %>" method="POST" class="inline">
+                            <button type="submit" class="text-red-500 hover:text-white ml-2" title="Delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                        <form action="/admin/edit-category/<%= category._id %>" method="POST" class="inline">
+                            <input type="hidden" name="cname" id="input-cname-<%= category._id %>">
+                            <button type="submit" class="text-green-500 hover:text-white ml-2 hidden submit-btn"
+                                id="submit-btn-<%= category._id %>" title="Submit Edit">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <% }); %>
+        </div>
+
+
+
+        <script>
+            function toggleEdit(categoryId) {
+                const categoryName = document.getElementById(`category-name-${categoryId}`);
+                const editInput = document.getElementById(`edit-input-${categoryId}`);
+                const submitBtn = document.getElementById(`submit-btn-${categoryId}`);
+
+                if (editInput.classList.contains('hidden')) {
+                    // Switch to edit mode
+                    categoryName.classList.add('hidden');
+                    editInput.classList.remove('hidden');
+                    submitBtn.classList.remove('hidden'); // Show submit button
+                    editInput.focus(); // Set focus on the input field
+                } else {
+                    // Switch back to view mode
+                    categoryName.classList.remove('hidden');
+                    editInput.classList.add('hidden');
+                    submitBtn.classList.add('hidden'); // Hide submit button
+                }
+
+                // Update the hidden input with the current value of the edit input
+                editInput.oninput = function () {
+                    document.getElementById(`input-cname-${categoryId}`).value = editInput.value;
+                };
+            }
+        </script>
+
+
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+/* work.css */
+
+/* Custom Radial Gradient (if Tailwind's built-in gradients are insufficient) */
+@layer utilities {
+  .bg-gradient-radial {
+    background-image: radial-gradient(circle, var(--tw-gradient-stops));
+  }
+}
+
+/* Ensuring the body takes full height */
+body {
+  min-height: 100vh;
+}

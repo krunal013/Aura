@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Weekly Event Scoreboard</title>
+    <style>
+        .podium {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 1.5rem;
+            margin-top: 2rem;
+
+        }
+
+        .position {
+            width: 180px;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 8px;
+            color: #f9fafb;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: height 1s ease;
+        }
+
+        .position-1 {
+            background: linear-gradient(to top, #81681716, #846A17);
+            /* Gold */
+            height: 200px;
+        }
+
+        .position-2 {
+            background: linear-gradient(to top, #c0c0c023, #858C99);
+            /* Silver */
+            height: 170px;
+        }
+
+        .position-3 {
+            background: linear-gradient(to top, #cd803225, #64442E);
+            /* Bronze */
+            height: 140px;
+        }
+
+        .profile {
+            margin-bottom: 8px;
+        }
+
+        .username {
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        .view-profile {
+            color: #909090;
+            font-size: 0.9rem;
+        }
+
+        .competitors {
+            margin-top: 3rem;
+            background-color: #1e293b;
+            border-radius: 8px;
+            padding: 1.5rem;
+            color: #e2e8f0;
+        }
+
+        .competitor-item {
+            border-bottom: 1px solid #334155;
+            padding: 0.75rem 0;
+        }
+
+        .competitor-item:last-child {
+            border-bottom: none;
+        }
+
+        .competitor-heading {
+            color: #cbd5e1;
+            font-weight: bold;
+        }
+
+        .competitor-data {
+            color: #f9fafb;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-800 text-white">
+    <%- include('header') %>
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mt-10">
+                <%= event.title %>
+            </h2>
+            <div class="podium mt-10">
+                <!-- Second Place -->
+                <% if (winners[1]) { %>
+                    <div id="second" class="position position-2 flex flex-col items-center">
+                        <div class="profile">
+                            <img src="https://via.placeholder.com/50" alt="Profile"
+                                class="rounded-full border border-gray-300">
+                        </div>
+                        <span class="username">
+                            <%= winners[1].uname %>
+                        </span>
+                        <span class="view-profile">View Profile</span>
+
+                    </div>
+                    <% } %>
+
+                        <!-- First Place -->
+                        <% if (winners[0]) { %>
+                            <div id="first" class="position position-1 flex flex-col items-center">
+                                <div class="profile">
+                                    <img src="https://via.placeholder.com/50" alt="Profile"
+                                        class="rounded-full border border-gray-300">
+                                </div>
+                                <span class="username">
+                                    <%= winners[0].uname %>
+                                </span>
+                                <span class="view-profile">View Profile</span>
+
+                            </div>
+                            <% } %>
+
+                                <!-- Third Place -->
+                                <% if (winners[2]) { %>
+                                    <div id="third" class="position position-3 flex flex-col items-center">
+                                        <div class="profile">
+                                            <img src="https://via.placeholder.com/50" alt="Profile"
+                                                class="rounded-full border border-gray-300">
+                                        </div>
+                                        <span class="username">
+                                            <%= winners[2].uname %>
+                                        </span>
+                                        <span class="view-profile">View Profile</span>
+
+                                    </div>
+                                    <% } %>
+            </div>
+        </div>
+
+        <!-- Competitors Section -->
+        <div class="container mx-auto text-center competitors my-8 px-4">
+            <h2 class="text-3xl font-bold mb-5 text-white">Competitors</h2>
+            <% if (losers.length===0) { %>
+                <p class="text-gray-400">No competitors available.</p>
+                <% } else { %>
+                    <ul class="space-y-4">
+                        <% losers.forEach((competitor)=> { %>
+                            <li class="competitor-item bg-gray-700 rounded-lg shadow-lg flex items-center p-5 gap-4">
+                                <!-- Profile Image Placeholder -->
+                                <div class="flex-shrink-0">
+                                    <img src="https://via.placeholder.com/50" alt="Profile"
+                                        class="w-16 h-16 rounded-full border-2 border-gray-500">
+                                </div>
+                                <!-- Competitor Details -->
+                                <div class="text-left flex-1">
+                                    <p class="text-lg font-semibold text-white">Username: <span class="text-blue-300">
+                                            <%= competitor.uname %>
+                                        </span></p>
+                                    <p class="text-sm text-gray-300">Status: <span class="text-green-400">
+                                            <%= competitor.status.charAt(0).toUpperCase() + competitor.status.slice(1)
+                                                %>
+                                        </span></p>
+                                    <p class="text-sm text-gray-300">Email: <span class="text-gray-200">
+                                            <%= competitor.usermail %>
+                                        </span></p>
+                                    <p class="text-sm text-gray-300">Phone Number: <span class="text-gray-200">
+                                            <%= competitor.usernumber || "N/A" %>
+                                        </span></p>
+                                </div>
+                                <!-- View Profile Button -->
+                                <div>
+                                    <a href="#"
+                                        class="text-sm bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg shadow">
+                                        View Profile
+                                    </a>
+                                </div>
+                            </li>
+                            <% }); %>
+                    </ul>
+                    <% } %>
+        </div>
+
+        <script>
+            window.onload = function () {
+                const first = document.getElementById('first');
+                const second = document.getElementById('second');
+                const third = document.getElementById('third');
+
+                setTimeout(() => { first.style.height = '250px'; }, 300);
+                setTimeout(() => { second.style.height = '190px'; }, 600);
+                setTimeout(() => { third.style.height = '130px'; }, 900);
+            };
+        </script>
+        </script>
+</body>
+
+</html>

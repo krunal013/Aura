@@ -4,58 +4,401 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= user.username %> | Your Feed
-    </title>
+    <title>Feed</title>
+    <link rel="stylesheet" href="/stylesheets/feed.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
 
 <body>
-    <div class="bg-white dark:bg-gray-800 h-screen h-full py-6 sm:py-8 lg:py-12">
-        <div class="mx-auto bg-gray-800 max-w-screen-2xl px-4 md:px-8">
-            <div class="mb-4 flex items-center justify-between gap-8 sm:mb-8 md:mb-12">
-                <div class="flex items-center gap-12">
-                    <h2 class="text-2xl font-bold text-gray-800 lg:text-3xl dark:text-white">Welcome <b
-                            class="text-rose-500">
-                            <%= user.username %>
-                        </b>
-                    </h2>
 
-                    <p class="hidden max-w-screen-sm text-gray-500 dark:text-gray-300 md:block">
-                        This is a section of some simple filler text,
-                        also known as placeholder text. It shares some characteristics of a real written text.
-                    </p>
+    <%- include('header') %>
+
+        <div class="final" style="margin-top: 2%;">
+            <% if (user.hasPaid) { %>
+                <div class="box">
+                    <h3 style="color: #c0a131;">
+                        You Exploring Premium Content!!</h3>
+                    <div class="buttons">
+                        <button class="btnew"> <a style="color: #bf9f2b;" href="event"> Event Started
+                                !</a></button>
+                        <a align="center" href="AboutEvent" class="btnew">About Event</a>
+                        <!-- <a align="center" href="pricing" class="btnew">Pricing</a> -->
+                        <a align="center" href="chat" class="btnew">Broadcast 💬</a>
+                        <a align="center" href="leaderboard" class="btnew">Current Event Winners</a>
+
+                    </div>
+
                 </div>
+                <% } else { %>
+                    <div class="boxdef">
+                        <h3>Check Events and Updates !!</h3>
+                        <div class="buttonsdef">
+                            <button class="btnewdef"> <a style="color: #42577d;" href="event">Join Events Now !
+                                    !</a></button>
+                            <a align="center" href="AboutEvent" class="btnewdef">About Event</a>
+                            <a align="center" href="pricing" class="btnewdef">Pricing</a>
 
-                <a href="/profile"
-                    class="inline-block rounded-lg border bg-white dark:bg-gray-700 dark:border-none px-4 py-1 text-center text-sm font-semibold text-gray-500 dark:text-gray-200 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-800 focus-visible:ring active:bg-gray-200 md:px-8 md:py-3 md:text-base">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    &nbsp;<%= user.fullname %>
-                </a>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
-                <!-- image - start -->
-                <% posts.forEach(function(elem){ %>
-                    <a href="#"
-                        class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80">
-                        <img src="/images/uploads/<%= elem.image %>" loading="lazy" alt="Photo by Minh Pham"
-                            class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-
-                        <div
-                            class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
                         </div>
+                    </div>
+                    <% } %>
 
-                        <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">
-                            <%= elem.title %>
-                        </span>
-                    </a>
-                    <%})%>
-            </div>
+
+                        <!-- Gallery Section -->
+                        <div class="section-padding gallery-section" id="gallery">
+                            <div class="container">
+                                <!-- Section Title Start -->
+                                <div class="text-center">
+                                    <h3 align="center" class="title">
+                                        <%= greeting %>
+                                            <%= user.fullname %>
+                                    </h3>
+
+                                    <br>
+                                    <div align="center">
+                                        <hr>
+                                    </div>
+                                    <br>
+                                    <p align="center" style="font-size: 15px;">Choose Catagory For Your Personolized
+                                        View
+                                    </p>
+                                    <br>
+                                </div>
+                                <!-- Section Title End -->
+
+                                <div id="btncontainer" class="filter">
+                                    <a class="btn btn-active" href="#all">ALL</a>
+                                    <% categories.forEach(category=> { %>
+                                        <a class="btn" href="#<%= category.cname %>">
+                                            <%= category.cname %>
+                                        </a>
+                                        <% }); %>
+                                            <!-- <a class="btn" href="#tv">TV Shows</a> -->
+                                </div>
+                                <style>
+                                    .filter {
+                                        background-color: #192231;
+                                        overflow: auto;
+                                        white-space: nowrap;
+                                        border-radius: 25px;
+                                        padding: 10px;
+                                    }
+
+                                    .filter::-webkit-scrollbar {
+                                        display: none;
+                                    }
+
+                                    .filter a {
+                                        display: inline-block;
+                                        color: white;
+                                        text-align: center;
+                                        padding: 14px;
+                                        text-decoration: none;
+                                    }
+
+                                    .filter a:hover {
+                                        background-color: #192231;
+                                    }
+                                </style>
+
+                                <!-- Gallery Section Start -->
+                                <div class="gallery sets">
+                                    <% posts.reverse().forEach(function(elem){ %>
+                                        <div class="gallery-item">
+                                            <div class="item-content <%= elem.className %>">
+                                                <a>
+                                                    <img src="/images/uploads/<%= elem.image %>"
+                                                        alt="<%= elem.imagetext %>" class="post-image" />
+                                                </a>
+                                                <div class="button-container">
+                                                    <!-- Like Button -->
+                                                    <button class="like-btn" data-post-id="<%= elem._id %>">
+                                                        <% if (elem.likes.indexOf(user._id) !==-1) { %>
+                                                            <i class="fas fa-heart" style="color: #a30202;"></i>
+                                                            <% } else { %>
+                                                                <i class="far fa-heart"></i>
+                                                                <% } %>
+                                                                    <span class="like-count">
+                                                                        <%= elem.likes.length %>
+                                                                    </span>
+                                                    </button>
+
+                                                    <!-- Download Button -->
+                                                    <% if (user.hasPaid) { %>
+                                                        <button class="download-btn" data-post-id="<%= elem._id %>"
+                                                            onclick="downloadImage('<%= elem.image %>', '<%= elem._id %>')">
+                                                            <i class="fas fa-arrow-circle-down"></i> &nbsp;&nbsp;
+                                                            <span class="download-count">
+                                                                <%= elem.downloads || 0 %>
+                                                            </span>
+                                                        </button>
+                                                        <% } else { %>
+                                                            <div class="tooltip-container">
+                                                                <a>
+                                                                    <button class="download-btn">
+                                                                        <i class="fas fa-arrow-circle-down"></i>
+                                                                    </button>
+                                                                </a>
+                                                                <span class="tooltip">Subscribe to Download</span>
+                                                            </div>
+
+                                                            <% } %>
+
+                                                                <!-- Share Button -->
+                                                                <button class="share-btn"
+                                                                    onclick="shareImage('<%= elem.image %>', '<%= elem.imagetext %>')">
+                                                                    <i class="fas fa-share"></i>
+                                                                </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }) %>
+                                </div>
+
+                                <!-- Updated CSS -->
+                                <style>
+                                    .tooltip-container {
+                                        position: relative;
+                                        display: inline-block;
+                                    }
+
+                                    .tooltip {
+                                        visibility: hidden;
+                                        width: 150px;
+                                        /* Adjust width as needed */
+                                        background-color: transparent;
+                                        backdrop-filter: blur(25px);
+                                        color: #fff;
+                                        text-align: center;
+                                        border-radius: 5px;
+                                        padding: 5px;
+                                        position: absolute;
+                                        z-index: 1;
+                                        bottom: 125%;
+                                        /* Position above the button */
+                                        left: 50%;
+                                        transform: translateX(-50%);
+                                        opacity: 0;
+                                        transition: opacity 0.3s;
+                                    }
+
+                                    .tooltip-container:hover .tooltip {
+                                        visibility: visible;
+                                        opacity: 1;
+                                    }
+
+                                    .button-container {
+                                        display: flex;
+                                        /* Use flexbox for horizontal alignment */
+                                        align-items: center;
+                                        /* Center vertically within the container */
+                                        gap: 10px;
+                                        /* Space between the buttons */
+                                    }
+
+                                    .like-btn,
+                                    .share-btn,
+                                    .download-btn {
+                                        background-color: #111827;
+                                        /* Dark background for buttons */
+                                        color: white;
+                                        /* White icon color */
+                                        border: none;
+                                        /* No border */
+                                        border-radius: 40%;
+                                        /* Rounded edges */
+                                        padding: 10px;
+                                        /* Padding for size */
+                                        cursor: pointer;
+                                        /* Cursor on hover */
+                                        display: flex;
+                                        /* Centering content */
+                                        align-items: center;
+                                        /* Vertical alignment */
+                                        justify-content: center;
+                                        /* Horizontal alignment */
+                                        transition: background-color 0.3s;
+                                        /* Smooth transition */
+                                    }
+
+                                    .like-btn:hover,
+                                    .share-btn:hover,
+                                    .download-btn:hover {
+                                        background-color: #575757;
+                                        /* Lighter background on hover */
+                                    }
+
+                                    .like-count {
+                                        margin-left: 5px;
+                                        /* Spacing between icon and count */
+                                        font-size: 14px;
+                                        /* Font size for count */
+                                    }
+                                </style>
+
+
+                            </div>
+                        </div>
         </div>
-    </div>
+        <script>
+            document.querySelectorAll(".filter a").forEach(function (link) {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    var a = this.getAttribute("href").substr(1);
 
+                    // Hide or show the entire item-content (image + buttons)
+                    document.querySelectorAll(".gallery-item .item-content").forEach(function (item) {
+                        if (!item.classList.contains(a) && a !== "all") {
+                            item.classList.add("hide");
+                        } else {
+                            item.classList.remove("hide");
+                        }
+                    });
+
+                    // Add active class to the current button (highlight it)
+                    document.querySelector(".btn-active").classList.remove("btn-active");
+                    this.classList.add("btn-active");
+                });
+            });
+
+            document.querySelectorAll('.like-btn').forEach(btn => {
+                btn.addEventListener('click', async function () {
+                    const postId = this.getAttribute('data-post-id');
+                    try {
+                        const response = await fetch(`/posts/${postId}/like`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            const likeCountElement = this.querySelector('.like-count');
+                            likeCountElement.textContent = data.likes; // Update the like count
+                            this.querySelector('i').className = data.isLiked ? 'fas fa-heart' : 'far fa-heart';
+                        } else {
+                            console.error('Failed to like/unlike post');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+
+            let imgs = document.querySelectorAll(".gallery img");
+            let count;
+            imgs.forEach((img, index) => {
+                img.addEventListener("click", function (e) {
+                    if (e.target === this) {
+                        count = index;
+                        let openDiv = document.createElement("div");
+                        let imgPreview = document.createElement("img");
+                        let butonsSection = document.createElement("div");
+                        butonsSection.classList.add("butonsSection");
+                        let closeBtn = document.createElement("button");
+                        let nextBtn = document.createElement("button");
+                        let prevBtn = document.createElement("button");
+                        prevBtn.innerHTML = '<i class="fas fa-backward"></i>';
+                        prevBtn.classList.add("prevButton");
+                        nextBtn.innerHTML = '<i class="fas fa-forward"></i>';
+                        nextBtn.classList.add("nextButton");
+                        closeBtn.classList.add("closeBtn");
+                        closeBtn.innerHTML = '<i class="fas fa-times-circle" style="color: #8f0000;"></i>';
+
+                        imgPreview.classList.add("imgPreview");
+                        imgPreview.src = e.target.src;
+                        openDiv.classList.add("openDiv");
+                        openDiv.append(imgPreview);
+                        butonsSection.append(prevBtn, closeBtn, nextBtn);
+                        openDiv.append(butonsSection);
+                        document.body.append(openDiv);
+
+                        let showNextImg = function () {
+                            count++;
+                            if (count === imgs.length) {
+                                count = 0;
+                            }
+                            imgPreview.src = imgs[count].src;
+                        };
+                        let showPrevImg = function () {
+                            count--;
+                            if (count === -1) {
+                                count = imgs.length - 1;
+                            }
+                            imgPreview.src = imgs[count].src;
+                        };
+
+                        nextBtn.addEventListener("click", showNextImg);
+                        prevBtn.addEventListener("click", showPrevImg);
+                        closeBtn.addEventListener("click", function () {
+                            document.body.removeChild(openDiv);
+                        });
+                    }
+                });
+            });
+
+            const shareImage = (imageUrl, imageText) => {
+                const fullImageUrl = `${window.location.origin}/images/uploads/${imageUrl}`;
+
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Check out this post!',
+                        text: imageText,  // Share the image description if available
+                        url: fullImageUrl  // Share the full URL of the image
+                    }).then(() => {
+                        console.log('Image shared successfully.');
+                    }).catch((error) => {
+                        console.error('Error sharing the image:', error);
+                    });
+                } else {
+                    // Fallback: copy the image URL to clipboard if the share API is not available
+                    navigator.clipboard.writeText(fullImageUrl)
+                        .then(() => {
+                            alert('Image URL copied to clipboard!');
+                        })
+                        .catch((error) => {
+                            console.error('Error copying the image URL:', error);
+                        });
+                }
+            };
+
+            // Download Image Function
+            const downloadImage = async (imageUrl, postId) => {
+                const fullImageUrl = `${window.location.origin}/images/uploads/${imageUrl}`;
+                const link = document.createElement('a');
+                link.href = fullImageUrl;
+                link.download = imageUrl;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Increment download count on the server
+                try {
+                    const response = await fetch(`/incrementDownloadCount/${postId}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.success) {
+                            const downloadCountElement = document.querySelector(`[data-post-id="${postId}"] .download-count`);
+                            downloadCountElement.textContent = data.newDownloadCount;  // Update the download count
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error incrementing download count:', error);
+                }
+            };
+
+
+        </script>
+        <%- include('footer') %>
 </body>
 
 </html>

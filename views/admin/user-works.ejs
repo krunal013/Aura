@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Works</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-gray-100 font-sans">
+    <%- include('userheader') %>
+        <div class="flex">
+            <%- include('sidebar') %>
+
+                <div class="flex-1 mx-auto px-6 py-6 max-w-4xl mt-14">
+                    <!-- Back Button -->
+                    <!-- <a href="javascript:history.back()"
+                        class="inline-block mb-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500">
+                        &larr; Back to Previous Page
+                    </a> -->
+
+                    <!-- Page Heading -->
+                    <h2 class="text-2xl font-bold mb-6">User Works</h2>
+
+                    <!-- Works List -->
+                    <ul class="space-y-8">
+                        <% works.forEach((work)=> { %>
+                            <li class="bg-gray-800 rounded-lg shadow-lg p-6">
+                                <h3 class="text-xl font-bold mb-2">
+                                    <%= work.title %>
+                                </h3>
+                                <p class="mb-2"><strong>Description:</strong>
+                                    <%= work.description %>
+                                </p>
+                                <p class="mb-4"><strong>Uploaded At:</strong>
+                                    <%= work.createdAt.toDateString() %>
+                                </p>
+
+                                <!-- Media Content -->
+                                <div class="media-container flex gap-4">
+                                    <% if (work.image) { %>
+                                        <div class="w-1/2">
+                                            <p class="font-semibold mb-2">Image:</p>
+                                            <img src="/work_upload/<%= work.image %>" alt="Work Image"
+                                                class="w-full h-full object-cover rounded shadow-lg mb-4">
+                                        </div>
+                                        <% } %>
+
+                                            <% if (work.video) { %>
+                                                <div class="w-1/2">
+                                                    <p class="font-semibold mb-2">Video:</p>
+                                                    <video controls class="w-full h-60 object-cover rounded shadow-lg">
+                                                        <source src="/work_upload/<%= work.video %>" type="video/mp4">
+                                                        Your browser does not support the video tag.
+                                                    </video>
+                                                </div>
+                                                <% } %>
+                                </div>
+                            </li>
+                            <% }); %>
+                    </ul>
+                </div>
+        </div>
+</body>
+
+</html>

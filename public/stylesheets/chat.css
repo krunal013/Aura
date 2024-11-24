@@ -1,0 +1,228 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: #1b1b1b;
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.userMessage {
+  background-color: #dff4fc;
+  padding: 1.3rem;
+  width: fit-content;
+  max-width: 250px;
+  border-radius: 15px;
+  animation: floatUp 0.5s ease-out; /* Apply animation */
+}
+
+.chat {
+  font-size: 1.6rem;
+  background-color: #fff;
+  padding: 2rem;
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Space between messages */
+}
+nav {
+  background-color: #414141;
+  color: #fff;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  position: sticky;
+}
+
+nav h1 {
+  font-size: 2rem;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.chat {
+  font-size: 1.6rem;
+  background-color: #fff;
+  padding: 2rem;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.chat::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.chat {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  min-height: auto;
+}
+
+img {
+  width: 50px;
+}
+
+.santaSays {
+  display: flex;
+  align-items: end;
+  gap: 1.3rem;
+}
+
+.text-box-santa > .text > p {
+  background-color: #eff3f6;
+  padding: 1.3rem;
+  width: fit-content;
+  max-width: 250px;
+  border-radius: 15px;
+}
+
+.userSays {
+  margin-top: 3rem;
+}
+
+.userSays > .text {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.userSays > .text > p {
+  background-color: #dff4fc;
+  padding: 1.3rem;
+  width: fit-content;
+  max-width: 250px;
+  border-radius: 15px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #f0efefe7;
+}
+
+.message-box {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  flex-shrink: 0;
+}
+
+.message-input {
+  width: 100%;
+}
+
+#inputText {
+  border: none;
+  padding: 1rem 0;
+  font-family: "Poppins", sans-serif;
+  width: 100%;
+  font-size: 1.6rem;
+  outline: none;
+}
+
+.plane {
+  font-size: 2rem;
+  color: #227393;
+  cursor: pointer;
+}
+
+/* Add these styles */
+.userMessage {
+  background-color: #dff4fc; /* Light blue background for user messages */
+  color: #000; /* Text color for better readability */
+  padding: 1rem;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  max-width: 75%;
+  word-wrap: break-word;
+}
+
+.chat {
+  font-size: 1.6rem;
+  background-color: #fff;
+  padding: 2rem;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+/* Add these styles to chat.css */
+
+#typingIndicator {
+  font-size: 1.4rem;
+  color: #888;
+  margin-top: 10px;
+}
+
+.chat::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.chat {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  min-height: auto;
+}
+
+@media (max-width: 767px) {
+  body {
+    min-height: 100px;
+  }
+  nav {
+    padding: 1rem;
+  }
+
+  nav h1 {
+    font-size: 1.8rem;
+  }
+
+  .chat {
+    padding: 1.5rem;
+  }
+
+  .message-box {
+    padding: 1rem;
+    min-height: min-content;
+  }
+
+  .plane {
+    font-size: 1.8rem;
+  }
+}

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Page</title>
+    <link rel="stylesheet" href="./stylesheets/event.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+
+        <nav class="nav-content">
+            <h1 id="hd" style="color: rgb(222, 145, 0);">Aura <i class="fas fa-plus fa-xs" style="color: #FFD43B;"></i>
+            </h1>
+            <a href="profile" align="center" id="pro" class="btnav">
+                <img class="pro-photo" src="/images/uploads/<%= user.profileimage%>" alt="image">
+
+            </a>
+        </nav>
+    </div>
+    <style>
+        #pro {
+            position: fixed;
+            right: 0px;
+            /* Fixes the button to the right side of the screen */
+            color: white;
+            text-align: right;
+            /* justify-content: center; */
+            align-items: center;
+            display: flex;
+            /* gap: 10px; */
+            height: 60px;
+        }
+
+        .profile-photo {
+            width: 50px;
+            /* Adjust the size as needed */
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .pro-photo {
+            width: 50px;
+            /* Adjust the size as needed */
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgb(224, 190, 0);
+        }
+
+        .btnav {
+            padding: 15px 15px;
+            margin: 3px 3px 3px 0;
+            display: inline-block;
+            color: rgb(194, 194, 194);
+            /* background: #464646; */
+            /* border: 1px solid #5f0600; */
+            transition: all 0.4s;
+            border-radius: 70px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            height: 75px;
+            /* width: auto; */
+            margin: 15px 15px 15px 30px;
+            z-index: 2;
+            /* Ensure it stays on top of other content */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            /* Optional: Add a slight shadow for better visibility */
+        }
+
+        .header h1 {
+            position: fixed;
+            color: #ffffffe4;
+            margin-left: 20px;
+        }
+
+        .header a {
+            position: fixed;
+            right: 70px;
+            /* Fixes the button to the right side of the screen */
+            color: white;
+            text-align: right;
+            /* justify-content: center; */
+            align-items: center;
+            display: flex;
+            gap: 10px;
+            height: 60px;
+        }
+
+        .header .btnew:nth-of-type(2) {
+            position: fixed;
+            right: 15px;
+            /* Fixes the button to the right side of the screen */
+            color: rgb(79, 69, 69);
+            text-align: right;
+        }
+
+
+
+        .nav-content {
+            position: fixed;
+            height: 75px;
+            width: calc(90vw - 30px);
+            left: 0;
+            top: 0;
+            margin: 25px;
+            margin-left: 6.5%;
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 2px 10px 0 rgba(3, 3, 3, 0.214);
+            min-width: 300px;
+            border-radius: 38px;
+            transition: 400ms 350ms;
+            z-index: -1;
+            overflow: scroll;
+            display: flex;
+            /* justify-content: center; */
+            justify-content: space-between;
+            align-items: center;
+            /* Hide scrollbar */
+            scrollbar-width: none;
+            /* For Firefox */
+            -ms-overflow-style: none;
+            /* For Internet Explorer and Edge */
+            box-shadow: 0 5px 15px rgba(191, 191, 191, 0.152);
+        }
+
+        .nav-content::-webkit-scrollbar {
+            display: none;
+            /* For Chrome, Safari, and Opera */
+        }
+
+        .nav-content .stuffs {
+            opacity: 0;
+            transition: 350ms;
+            margin-top: 75px;
+            padding-inline-start: 0px;
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        p {
+            font-size: 20px;
+        }
+    </style>
+    <div class="container">
+        <div class="main-content">
+            <div class="theme-toggle-container">
+                <label for="theme" class="ios-switch">
+                    <input id="theme" class="ios-switch__toggle" type="checkbox" role="switch" name="theme"
+                        value="dark">
+                    <span class="ios-switch__slider"></span>
+                </label>
+            </div>
+            <style>
+                .ios-switch {
+                    position: relative;
+                    display: inline-block;
+                    width: 50px;
+                    height: 28px;
+                }
+
+                .ios-switch__toggle {
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                }
+
+                .ios-switch__slider {
+                    position: absolute;
+                    cursor: pointer;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: #ccc;
+                    transition: 0.4s;
+                    border-radius: 34px;
+                }
+
+                .ios-switch__slider:before {
+                    position: absolute;
+                    content: "";
+                    height: 22px;
+                    width: 22px;
+                    left: 3px;
+                    bottom: 3px;
+                    background-color: white;
+                    transition: 0.4s;
+                    border-radius: 50%;
+                }
+
+                .ios-switch__toggle:checked+.ios-switch__slider {
+                    background-color: #5e0089;
+                }
+
+                .ios-switch__toggle:checked+.ios-switch__slider:before {
+                    transform: translateX(22px);
+                }
+
+                .ios-switch__slider:active:before {
+                    width: 28px;
+                }
+            </style>
+
+            <h1><%= event.title %></h1>
+            <!-- <button class="cta-button">READY TO ACTION?</button> -->
+            <div class="mysec">
+
+
+                <div class="notification">
+                    <div class="notiglow"></div>
+                    <div class="notiborderglow"></div>
+                    <!-- <div class="notititle">Welcome To Events of Aura</div> -->
+                    <!-- <hr> -->
+                    <div class="notibody"><i class="fas fa-hand-point-right" style="color: #9e830a;"></i>
+                        &nbsp;<%= event.description1 %></div>
+                    <br>
+                    <div class="notibody"><i class="fas fa-hand-point-right" style="color: #9e830a;"></i>&nbsp;
+                        <%= event.description2 %></div>
+                    <br>
+                    <div class="notibody"><i class="fas fa-hand-point-right" style="color: #9e830a;"></i>&nbsp; Prizes
+                        <%= event.description3 %></div>
+                    <br>
+                    <div class="notibody"><i class="fas fa-hand-point-right" style="color: #9e830a;"></i>&nbsp; Users
+                        <%= event.description4 %></div>
+                </div>
+
+
+                <!-- <div class="testimonial">
+                    <div align="center">
+                        <img style="height: 10px;width: 10px;" src="./images/screw.png" alt="">
+                    </div>
+                    <br>
+                    <p>"Our aim is to boost your skills with weekly challenges"</p>
+                    <br>
+                    <!-- <cite>Agonzalez -->
+                <!-- <br>CEO - Brain3360</cite> -->
+                <!-- </div> -->
+
+            </div>
+            <br><br>
+            <!-- <div class="prizes">
+                <div class="prize">
+                    <h2>1st</h2>
+                    <p>500</p>
+                </div>
+                <div class="prize">
+                    <h2>2nd</h2>
+                    <p>250</p>
+                </div>
+                <div class="prize">
+                    <h2>3rd</h2>
+                    <p>100</p>
+                </div>
+            </div> -->
+
+            <div class="cards">
+                <div class="card red">
+                    <p class="tip"> <%= event.price1 %> </p>
+                    <!-- <p class="second-text">User Will Get Price </p> -->
+                </div>
+                <div class="card blue">
+                    <p class="tip"><%= event.price2 %> </p>
+                    <!-- <p class="second-text">Lorem Ipsum</p> -->
+                </div>
+                <div class="card green">
+                    <p class="tip"><%= event.price3 %></p>
+                    <!-- <p class="second-text">Lorem Ipsum</p> -->
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="buttons">
+                <a href="work"> <button type="button" class="btn">
+                        <strong> Go For it</strong>
+                        <div id="container-stars">
+                            <div id="stars"></div>
+                        </div>
+
+                        <div id="glow">
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                        </div>
+                    </button></a>
+                <!-- <button class="action-button">Watch a Demo</button> -->
+            </div>
+            <p class="footer-info">2000+ USERS WIN TILL NOW</p>
+        </div>
+        <div class="side-content">
+            <!-- Add the image -->
+            <div class="event-image">
+                <img src="./images/eventss.png" alt="Event">
+            </div>
+
+            <br>
+            <!-- <div class="testimonial">
+                <p>Our aim is to boost your skills with weekly challenges</p>
+                <cite>Agonzalez<br>CEO - Brain3360</cite>
+            </div> -->
+        </div>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('theme');
+        const body = document.body;
+
+        // Load theme from localStorage
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            body.classList.add(currentTheme);
+            if (currentTheme === 'dark-mode') {
+                themeToggle.checked = true;
+            }
+        }
+
+        // Add event listener for theme toggle
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light-mode');
+            }
+        });
+
+        // Prevent dark mode from turning off when clicking anywhere
+        document.addEventListener('click', (event) => {
+            if (themeToggle.checked && !event.target.closest('.theme-toggle-container')) {
+                // This block ensures that the dark mode does not turn off unless the toggle is clicked
+                event.stopPropagation();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

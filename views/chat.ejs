@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/stylesheets/chat.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <a href="/feed" class="back-btn">
+                <i style="font-size: 15px;color: bisque;" class="fas fa-arrow-left"></i>
+            </a>
+            <h1>Aura Chat</h1>
+            <h3>
+                <i class="fas fa-user-circle fa-lg" style="color: #f7d792;"></i>
+                <%= user.username %>
+            </h3>
+        </nav>
+
+        <div class="chat" id="chatWindow">
+            <!-- Load previous messages on page load -->
+            <% if (messages.length> 0) { %>
+                <% messages.forEach(function(msg) { %>
+                    <h4>@<%= msg.sender %>
+                    </h4>
+                    <p class="userMessage">
+                        <%= msg.message %>
+                    </p>
+                    <% }) %>
+                        <% } %>
+        </div>
+
+        <div class="message-box">
+            <div class="message-input">
+                <input id="inputText" type="text" placeholder="Type your message here...">
+                <div id="typingIndicator"></div> <!-- Typing indicator -->
+            </div>
+            <div class="send-btn">
+                <i class="far fa-paper-plane plane"></i>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const chatWindow = document.getElementById("chatWindow");
+        const inputText = document.getElementById("inputText");
+        const btn = document.querySelector(".plane");
+        const typingIndicator = document.getElementById("typingIndicator");
+
+        let lastSender = null;
+
+        // Connect to the server
+        var socket = io();
+
+        // Emit joinRoom event when the user joins the chat
+        socket.emit("joinRoom");
+
+        // Function to display a message
+        function displayMessage(sender, message) {
+            if (sender !== lastSender) {
+                let senderElement = document.createElement("h4");
+                senderElement.innerHTML = `@${sender}`;
+                chatWindow.appendChild(senderElement);
+                lastSender = sender;
+            }
+
+            let messageElement = document.createElement("p");
+            messageElement.innerHTML = message;
+            messageElement.classList.add("userMessage");
+            chatWindow.appendChild(messageElement);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        // Listen for chat messages from the server
+        socket.on("chat message", function (data) {
+            const { sender, message } = data;
+            displayMessage(sender, message);
+        });
+
+        // Listen for typing events from other users
+        socket.on("typing", function (username) {
+            typingIndicator.innerHTML = `${username} is typing...`;
+            setTimeout(() => {
+                typingIndicator.innerHTML = '';
+            }, 2000); // Hide the typing indicator after 2 seconds
+        });
+
+        // Emit typing event when the user is typing
+        inputText.addEventListener("keypress", () => {
+            socket.emit("typing", { username: "<%= user.fullname %>" });
+        });
+
+        // Send a message to the server
+        function sendMessage() {
+            let message = inputText.value;
+            if (message.trim() !== "") {
+                socket.emit("chat message", {
+                    sender: "<%= user.fullname %>", // Using server-side template rendering
+                    message: message
+                });
+                inputText.value = "";
+                typingIndicator.innerHTML = ''; // Clear typing indicator when message is sent
+            }
+        }
+
+        // Send message on button click
+        btn.addEventListener("click", sendMessage);
+
+        // Send message on Enter key press
+        inputText.addEventListener("keyup", (e) => {
+            if (e.key === "Enter") {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+
+</html>

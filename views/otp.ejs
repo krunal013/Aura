@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <!-- <h1>Verify OTP</h1> -->
+    <form action="/verify-otp" method="POST" id="otp-form">
+        <div class="relative font-inter antialiased">
+            <main class="relative min-h-screen text-white flex flex-col justify-center bg-gray-900 overflow-hidden">
+                <div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-24">
+                    <div class="flex justify-center">
+                        <div
+                            class="max-w-md mx-auto text-center text-white bg-white dark:bg-gray-800 px-4 sm:px-8 py-10 rounded-xl shadow">
+                            <header class="mb-8">
+                                <h1 class="text-3xl font-semibold mb-2">Aura</h1>
+                                <hr class="m-5">
+                                <h1 class="text-2xl font-bold mb-1">Email Phone Verification</h1>
+                                <p class="text-[15px] text-slate-500">Enter the 6-digit verification code that was sent
+                                    to your Email.</p>
+                            </header>
+
+                            <!-- Hidden Inputs -->
+                            <input type="hidden" id="emailInput" name="email" value="<%= email %>" />
+                            <input type="hidden" id="otpInput" name="otp" value="" />
+
+                            <div class="mb-6">
+                                <!-- Email Display Input -->
+                                <input id="emailDisplay" value="<%= email %>" type="text"
+                                    class="w-full text-slate-950 text-center text-lg font-semibold text-slate-900 bg-slate-100 border border-transparent rounded p-2 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                    readonly />
+                            </div>
+
+                            <div class="flex items-center justify-center gap-3">
+                                <!-- OTP Inputs -->
+                                <input type="text"
+                                    class="otp-input w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                    maxlength="1" />
+                                <input type="text"
+                                    class="otp-input w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                    maxlength="1" />
+                                <input type="text"
+                                    class="otp-input w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                    maxlength="1" />
+                                <input type="text"
+                                    class="otp-input w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                    maxlength="1" />
+                                <input type="text"
+                                    class="otp-input w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                    maxlength="1" />
+                                <input type="text"
+                                    class="otp-input w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                                    maxlength="1" />
+                            </div>
+
+                            <div class="max-w-[260px] mx-auto mt-4">
+                                <button type="submit"
+                                    class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150">Verify
+                                    Account</button>
+                            </div>
+
+                            <div class="text-sm text-slate-500 mt-4">Didn't receive code? <a
+                                    class="font-medium text-indigo-500 hover:text-indigo-600" href="#0">Resend</a></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('otp-form');
+            const inputs = [...form.querySelectorAll('.otp-input')];
+            const otpInput = document.getElementById('otpInput');
+
+            const updateOtpField = () => {
+                const otp = inputs.map(input => input.value).join('');
+                otpInput.value = otp;
+            };
+
+            const handleInput = (e) => {
+                const { target } = e;
+                const index = inputs.indexOf(target);
+                if (target.value) {
+                    if (index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    } else {
+                        updateOtpField();
+                    }
+                } else if (index > 0) {
+                    inputs[index - 1].focus();
+                }
+            };
+
+            const handleKeyDown = (e) => {
+                if (
+                    !/^[0-9]{1}$/.test(e.key)
+                    && e.key !== 'Backspace'
+                    && e.key !== 'Delete'
+                    && e.key !== 'Tab'
+                    && !e.metaKey
+                ) {
+                    e.preventDefault();
+                }
+
+                if (e.key === 'Delete' || e.key === 'Backspace') {
+                    const index = inputs.indexOf(e.target);
+                    if (index > 0) {
+                        inputs[index - 1].value = '';
+                        inputs[index - 1].focus();
+                    }
+                }
+            };
+
+            const handleFocus = (e) => {
+                e.target.select();
+            };
+
+            const handlePaste = (e) => {
+                e.preventDefault();
+                const text = e.clipboardData.getData('text');
+                if (!new RegExp(`^[0-9]{${inputs.length}}$`).test(text)) {
+                    return;
+                }
+                const digits = text.split('');
+                inputs.forEach((input, index) => input.value = digits[index]);
+                updateOtpField();
+            };
+
+            inputs.forEach((input) => {
+                input.addEventListener('input', handleInput);
+                input.addEventListener('keydown', handleKeyDown);
+                input.addEventListener('focus', handleFocus);
+                input.addEventListener('paste', handlePaste);
+            });
+
+            form.addEventListener('submit', (e) => {
+                updateOtpField(); // Ensure OTP is updated before submission
+            });
+        });
+    </script>
+</body>
+
+</html>

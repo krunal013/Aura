@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Records</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Colors */
+        :root {
+            --dark-bg: #111827;
+            --table-bg: #1A2332;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+        }
+
+        /* Smooth transition for collapsing rows */
+        .collapsible-content {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+        }
+
+        .collapsible-content.active {
+            max-height: 300px;
+            /* Adjust as per content height */
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="text-white">
+    <%- include('userheader') %>
+        <%- include('sidebar') %>
+            <div class="container mx-auto p-6 ml-64">
+                <h1 class="text-4xl font-bold mb-6 text-center">Current Event Evolution </h1>
+                <h1 class="text2xl mb-6 text-center">(Evalution Data Will be Expired in 5 Days)</h1>
+                <form action="/admin/declare" method="post">
+                    <button class="bg-green-600 rounded-md p-2 after:scale-50">
+                        Declare Result
+                    </button>
+                </form>
+
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <table class="table-auto w-full text-left text-sm bg-[#1A2332]">
+                        <thead class="bg-gray-900 text-white">
+                            <tr>
+                                <th class="px-4 py-4">username</th>
+                                <th class="px-4 py-4">Title</th>
+                                <th class="px-4 py-4">Description</th>
+                                <th class="px-4 py-4">Email</th>
+
+                                <th class="px-4 py-4">Date</th>
+                                <th class="px-4 py-4 text-center">Action</th> <!-- Align buttons to the right -->
+                            </tr>
+                        </thead>
+                        <tbody class="bg-[#1A2332] text-white">
+                            <% works.forEach((work, index)=> { %>
+                                <% if (!work.olddata) { %>
+                                    <tr class="border-b border-gray-600 hover:bg-gray-800 transition-colors">
+                                        <td class="px-4 py-4">
+                                            <%= work.uname %>
+                                        </td>
+                                        <td class="px-4 py-4">
+                                            <%= work.title || "Untitled" %>
+                                        </td>
+                                        <td class="px-4 py-4">
+                                            <%= work.description %>
+                                        </td>
+                                        <td class="px-4 py-4">
+                                            <%= work.usermail %>
+                                        </td>
+
+                                        <td class="px-4 py-4">
+                                            <%= new Date(work.createdAt).toLocaleString() %>
+                                        </td>
+                                        <td class="px-4 py-4 text-right">
+                                            <button
+                                                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mr-2"
+                                                onclick="toggleDropdown(<%= index %>)">
+                                                Show Media
+                                            </button>
+
+                                            <% if (work.firstwinner) { %>
+                                                <form action="/admin/firstwinner" method="POST"
+                                                    style="display: inline;">
+                                                    <input type="hidden" name="workId" value="<%= work._id %>">
+                                                    <button type="submit"
+                                                        class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg mr-2">
+                                                        <%= work.uname %> is First
+                                                    </button>
+                                                </form>
+                                                <% } else if (work.secondwinner) { %>
+                                                    <form action="/admin/secondwinner" method="POST"
+                                                        style="display: inline;">
+                                                        <input type="hidden" name="workId" value="<%= work._id %>">
+                                                        <button type="submit"
+                                                            class="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded-lg mr-2">
+                                                            <%= work.uname %> is Second
+                                                        </button>
+                                                    </form>
+                                                    <% } else if (work.thirdwinner) { %>
+                                                        <form action="/admin/thirdwinner" method="POST"
+                                                            style="display: inline;">
+                                                            <input type="hidden" name="workId" value="<%= work._id %>">
+                                                            <button type="submit"
+                                                                class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg">
+                                                                <%= work.uname %> is Third
+                                                            </button>
+                                                        </form>
+                                                        <% } else { %>
+                                                            <!-- Show these buttons only if no winners are declared -->
+                                                            <form action="/admin/firstwinner" method="POST"
+                                                                style="display: inline;"
+                                                                id="firstwinner-form-<%= index %>">
+                                                                <input type="hidden" name="workId"
+                                                                    value="<%= work._id %>">
+                                                                <button type="submit"
+                                                                    class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg mr-2">
+                                                                    1st
+                                                                </button>
+                                                            </form>
+                                                            <form action="/admin/secondwinner" method="POST"
+                                                                style="display: inline;"
+                                                                id="secondwinner-form-<%= index %>">
+                                                                <input type="hidden" name="workId"
+                                                                    value="<%= work._id %>">
+                                                                <button type="submit"
+                                                                    class="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded-lg mr-2">
+                                                                    2nd
+                                                                </button>
+                                                            </form>
+                                                            <form action="/admin/thirdwinner" method="POST"
+                                                                style="display: inline;"
+                                                                id="thirdwinner-form-<%= index %>">
+                                                                <input type="hidden" name="workId"
+                                                                    value="<%= work._id %>">
+                                                                <button type="submit"
+                                                                    class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg">
+                                                                    3rd
+                                                                </button>
+                                                            </form>
+                                                            <% } %>
+
+                                                                <% if (!work.firstwinner && !work.secondwinner &&
+                                                                    !work.thirdwinner) { %>
+                                                                    <span class="text-gray-600">Looser</span>
+                                                                    <% } %>
+
+                                                                        <script>
+                                                                            document.addEventListener('DOMContentLoaded', function () {
+                                                                                // Example logic to check if three winners are declared
+                                                                                let firstWinnerDeclared = <%= work.firstwinner ? 'true' : 'false' %>;
+                                                                                let secondWinnerDeclared = <%= work.secondwinner ? 'true' : 'false' %>;
+                                                                                let thirdWinnerDeclared = <%= work.thirdwinner ? 'true' : 'false' %>;
+
+                                                                                // Set winnersDeclared to true if all three winners are declared
+                                                                                let winnersDeclared = firstWinnerDeclared && secondWinnerDeclared && thirdWinnerDeclared;
+
+                                                                                // Hide the buttons if winners are declared
+                                                                                if (winnersDeclared) {
+                                                                                    document.getElementById('firstwinner-form-<%= index %>').style.display = 'none';
+                                                                                    document.getElementById('secondwinner-form-<%= index %>').style.display = 'none';
+                                                                                    document.getElementById('thirdwinner-form-<%= index %>').style.display = 'none';
+                                                                                }
+                                                                            });
+                                                                        </script>
+                                        </td>
+
+
+                                    </tr>
+
+                                    <!-- Collapsible row for images/videos -->
+                                    <tr>
+                                        <td colspan="6" class="px-4 py-4 bg-gray-700">
+                                            <div id="dropdown-<%= index %>" class="collapsible-content flex space-x-4">
+                                                <% if (work.image) { %>
+                                                    <div>
+                                                        <img src="/work_upload/<%= work.image %>" alt="Work Image"
+                                                            class="w-32 h-auto rounded-lg mb-2 cursor-pointer"
+                                                            onclick="openModal('<%= work.image %>')">
+                                                    </div>
+                                                    <% } %>
+
+                                                        <% if (work.video) { %>
+                                                            <div>
+                                                                <video controls class="w-32 h-auto rounded-lg">
+                                                                    <source src="/work_upload/<%= work.video %>"
+                                                                        type="video/mp4">
+                                                                    Your browser does not support the video tag.
+                                                                </video>
+                                                            </div>
+                                                            <% } %>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                        <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <br>
+                <h1 class="text-2xl font-bold mb-6 text-center">OLD EVENTS DATA</h1>
+                <br>
+                <br>
+
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <table class="table-auto w-full text-left text-sm bg-[#1A2332]">
+                        <thead class="bg-gray-900 text-white">
+                            <tr>
+                                <th class="px-4 py-4">username</th>
+                                <th class="px-4 py-4">Title</th>
+                                <th class="px-4 py-4">Description</th>
+                                <th class="px-4 py-4">Email</th>
+                                <th class="px-4 py-4">Number</th>
+                                <th class="px-4 py-4">Date</th>
+                                <th class="px-4 py-4 text-center">Action</th> <!-- Align buttons to the right -->
+                            </tr>
+                        </thead>
+                        <tbody class="bg-[#1A2332] text-white">
+                            <% works.forEach((work, index)=> { %>
+                                <% if (work.olddata) { %>
+                                    <tr class="border-b border-gray-600 hover:bg-gray-800 transition-colors">
+                                        <td class="px-4 py-4">
+                                            <%= work.uname %>
+                                        </td>
+                                        <td class="px-4 py-4">
+                                            <%= work.title || "Untitled" %>
+                                        </td>
+                                        <td class="px-4 py-4">
+                                            <%= work.description %>
+                                        </td>
+                                        <td class="px-4 py-4">
+                                            <%= work.usermail %>
+                                        </td>
+                                        <td class="px-4 py-4">
+                                            <%= work.usernumber %>
+                                        </td>
+                                        <td class="px-4 py-4">
+                                            <%= new Date(work.createdAt).toLocaleString() %>
+                                        </td>
+                                        <td class="px-4 py-4 text-right">
+                                            <button
+                                                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mr-2"
+                                                onclick="toggleDropdown(<%= index %>)">
+                                                Show Media
+                                            </button>
+
+                                            <% if (work.firstwinner) { %>
+
+                                                <button type="menu"
+                                                    class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg mr-2">
+                                                    <%= work.uname %> is First
+                                                </button>
+                                                </form>
+                                                <% } else if (work.secondwinner) { %>
+
+                                                    <button type="submit"
+                                                        class="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded-lg mr-2">
+                                                        <%= work.uname %> is Second
+                                                    </button>
+                                                    </form>
+                                                    <% } else if (work.thirdwinner) { %>
+
+                                                        <button type="submit"
+                                                            class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg">
+                                                            <%= work.uname %> is Third
+                                                        </button>
+                                                        </form>
+                                                        <% } else { %>
+                                                            <!-- Show these buttons only if no winners are declared -->
+                                                            <span class="text-2xl text-zinc-200">Looser</span>
+
+                                                            <% } %>
+
+                                                                <!-- <% if (!work.firstwinner && !work.secondwinner && !work.thirdwinner)
+                                                        { %>
+                                                        <span class="text-gray-600">Looser</span>
+                                                        <% } %> -->
+
+                                                                <script>
+                                                                    document.addEventListener('DOMContentLoaded', function () {
+                                                                        // Example logic to check if three winners are declared
+                                                                        let firstWinnerDeclared = <%= work.firstwinner ? 'true' : 'false' %>;
+                                                                        let secondWinnerDeclared = <%= work.secondwinner ? 'true' : 'false' %>;
+                                                                        let thirdWinnerDeclared = <%= work.thirdwinner ? 'true' : 'false' %>;
+
+                                                                        // Set winnersDeclared to true if all three winners are declared
+                                                                        let winnersDeclared = firstWinnerDeclared && secondWinnerDeclared && thirdWinnerDeclared;
+
+                                                                        // Hide the buttons if winners are declared
+                                                                        if (winnersDeclared) {
+                                                                            document.getElementById('firstwinner-form-<%= index %>').style.display = 'none';
+                                                                            document.getElementById('secondwinner-form-<%= index %>').style.display = 'none';
+                                                                            document.getElementById('thirdwinner-form-<%= index %>').style.display = 'none';
+                                                                        }
+                                                                    });
+                                                                </script>
+                                        </td>
+
+
+                                    </tr>
+
+                                    <!-- Collapsible row for images/videos -->
+                                    <tr>
+                                        <td colspan="6" class="px-4 py-4 bg-gray-700">
+                                            <div id="dropdown-<%= index %>" class="collapsible-content flex space-x-4">
+                                                <% if (work.image) { %>
+                                                    <div>
+                                                        <img src="/work_upload/<%= work.image %>" alt="Work Image"
+                                                            class="w-32 h-auto rounded-lg mb-2 cursor-pointer"
+                                                            onclick="openModal('<%= work.image %>')">
+                                                    </div>
+                                                    <% } %>
+
+                                                        <% if (work.video) { %>
+                                                            <div>
+                                                                <video controls class="w-32 h-auto rounded-lg">
+                                                                    <source src="/work_upload/<%= work.video %>"
+                                                                        type="video/mp4">
+                                                                    Your browser does not support the video tag.
+                                                                </video>
+                                                            </div>
+                                                            <% } %>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                        <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Modal for displaying full-size image -->
+            <div id="imageModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-75 z-50">
+                <div class="relative">
+                    <span class="absolute top-0 right-0 text-white text-2xl cursor-pointer p-2"
+                        onclick="closeModal()">&times;</span>
+                    <img id="modalImage" src="" alt="Full Image" class="max-w-full max-h-screen rounded-lg">
+                </div>
+            </div>
+
+            <script>
+                // Function to toggle dropdown visibility with smooth transition
+                function toggleDropdown(index) {
+                    const dropdown = document.getElementById('dropdown-' + index);
+                    dropdown.classList.toggle('active');
+                }
+
+                // Function to open modal and display full-size image
+                function openModal(imageSrc) {
+                    const modal = document.getElementById('imageModal');
+                    const modalImage = document.getElementById('modalImage');
+                    modalImage.src = '/work_upload/' + imageSrc;
+                    modal.classList.remove('hidden');
+                }
+
+                // Function to close the modal
+                function closeModal() {
+                    const modal = document.getElementById('imageModal');
+                    modal.classList.add('hidden');
+                }
+
+
+            </script>
+</body>
+
+</html>

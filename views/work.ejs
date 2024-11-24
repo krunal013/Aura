@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Work</title>
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Load Fredoka Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Tailwind CSS via Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Custom Colors
+                        browseBg: '#41005B', // Purple-800
+                        browseHover: '#0E0E0E', // Dark Gray
+                        submitBg: '#3B82F6', // Blue-500
+                        submitHover: '#2563EB', // Blue-600
+                        otherBg: '#FFFFFF', // White
+                        otherText: '#000000', // Black
+                        uploadBg: '#1F2937', // Gray-800
+                        uploadHoverBg: '#374151', // Gray-700
+                        uploadBorder: '#525252', // Gray-600
+                        uploadHoverBorder: '#41005B', // Purple-800
+                    },
+                    boxShadow: {
+                        upload: '0px 0px 200px -50px rgba(0, 0, 0, 0.719)',
+                    },
+                    borderRadius: {
+                        'file-upload': '40px',
+                        'rule-card': '35px',
+                        'browse-button': '10px',
+                        'uploaded': '10px',
+                        'other-content': '25px',
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(circle, var(--tw-gradient-stops))',
+                    },
+                    fontFamily: {
+                        sans: ['Fredoka', 'sans-serif'], // Set Fredoka as the default sans-serif font
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Favicon (Optional) -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+
+<body class="bg-gradient-radial from-gray-900 to-gray-800 text-white font-sans min-h-screen">
+    <%- include('header') %>
+        <div class="container mx-auto p-6 text-center">
+            <h1 class="text-4xl text-gray-500 font-bold mb-8">SUBMIT YOUR WORK</h1>
+            <hr>
+            <br>
+            <span class="text-2xl text-gray-500 font bold mb-8">
+                <%= user.fullname %> || <%= user.username %>
+            </span>
+            <!-- Rules Section (Unchanged) -->
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-8">
+                <div class="bg-gray-800 p-6 rounded-rule-card">
+                    <img src="/images/document.png" alt="Document Icon" class="w-20 mx-auto mb-4">
+                    <h2 class="text-xl font-semibold mb-2">Critaria</h2>
+                    <p class="text-sm">"Ensure your submission meets all the criteria. It should be original, clear, and
+                        follow the given guidelines."</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-rule-card">
+                    <img src="/images/checkmark.png" alt="Checkmark Icon" class="w-20 mx-auto mb-4">
+                    <h2 class="text-xl font-semibold mb-2">Originality</h2>
+                    <p class="text-sm">"Your submission must adhere to our quality standards, including clarity,
+                        originality, and relevance."</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-rule-card">
+                    <img src="/images/calander.png" alt="Calendar Icon" class="w-20 mx-auto mb-4">
+                    <h2 class="text-xl font-semibold mb-2">Do Early</h2>
+                    <p class="text-sm">"Submit your work before the deadline to ensure it is reviewed in time."</p>
+                </div>
+            </div>
+
+            <!-- Input Group: Name Input and File Uploads -->
+            <form action="/workupload" method="POST" enctype="multipart/form-data">
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <input type="hidden" name="eventId" value="<%= event._id %>" />
+                    <!-- Name Input -->
+                    <input type="text" name="title" placeholder="Enter Title of your Work"
+                        class="w-full p-2 bg-gray-800 text-gray-200 rounded-full">
+
+                    <input type="text" name="description"
+                        placeholder="Input Description/instruction (if needed) Of Your Work...."
+                        class="w-full p-2 bg-gray-800 text-gray-200 rounded-full">
+
+
+
+                    <input type="email" name="usermail" value="<%= user.email %>"
+                        class="w-full p-2 bg-gray-800 text-gray-200 rounded-full" style="display: none;">
+
+                    <input type="name" name="uname" value="<%= user.username %>"
+                        class="w-full p-2 bg-gray-800 text-gray-200 rounded-full" style="display: none;">
+
+                    <input type=" number" name="usernumber" placeholder="Phone Number for Alternative"
+                        class="w-full p-2 bg-gray-800 text-gray-200 rounded-full">
+
+                    <!-- Image Upload Input -->
+                    <label for="image-file"
+                        class="block w-full p-6 text-center bg-uploadBg text-gray-200 rounded-file-upload border-2 border-dashed border-uploadBorder hover:bg-uploadHoverBg hover:border-uploadHoverBorder cursor-pointer shadow-upload">
+                        <div class="flex flex-col items-center justify-center gap-2">
+                            <svg class="w-8 h-8 text-gray-400 mb-2" fill="currentColor" viewBox="0 0 640 512">
+                                <path
+                                    d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z">
+                                </path>
+                            </svg>
+                            <p>Drag and Drop</p>
+                            <p>or</p>
+                            <span class="bg-browseBg text-white py-1 px-4 rounded-md hover:bg-browseHover">Browse
+                                file</span>
+                        </div>
+                        <input id="image-file" name="image" type="file" accept="image/*" class="hidden">
+                    </label>
+
+                    <!-- Video Upload Input -->
+                    <label for="video-file"
+                        class="block w-full p-6 text-center bg-uploadBg text-gray-200 rounded-file-upload border-2 border-dashed border-uploadBorder hover:bg-uploadHoverBg hover:border-uploadHoverBorder cursor-pointer shadow-upload">
+                        <div class="flex flex-col items-center justify-center gap-2">
+                            <svg class="w-8 h-8 text-gray-400 mb-2" fill="currentColor" viewBox="0 0 640 512">
+                                <path
+                                    d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z">
+                                </path>
+                            </svg>
+                            <p>Drag and Drop</p>
+                            <p>or</p>
+                            <span class="bg-browseBg text-white py-1 px-4 rounded-md hover:bg-browseHover">Browse
+                                file</span>
+                        </div>
+                        <input id="video-file" name="video" type="file" accept="video/mp4" class="hidden">
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit"
+                    class="mt-6 px-6 py-2 bg-submitBg hover:bg-submitHover text-white font-semibold rounded-md">Submit</button>
+            </form>
+
+            <br>
+            <p class="text-red-500">Note : in case of change image just re-upload your Image/video.</p>
+            <br>
+            <!-- Preview Sections -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- Image Preview -->
+                <div id="image-preview" class="bg-gray-800 text-gray-200 p-4 rounded-md">
+                    <p class="mb-2">Image Preview:</p>
+                    <!-- Uploaded image will appear here -->
+                </div>
+                <!-- Video Preview -->
+                <div id="video-preview" class="bg-gray-800 text-gray-200 p-4 rounded-md">
+                    <p class="mb-2">Video Preview:</p>
+                    <!-- Uploaded video will appear here -->
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <!-- <button
+            class="mt-6 px-6 py-2 bg-submitBg hover:bg-submitHover text-white font-semibold rounded-md">Submit</button> -->
+
+            <!-- Other Content -->
+            <div class="mt-10 p-4 bg-gray-800 text-red-800 rounded-other-content">
+                <p>"Need help? Visit our FAQ section for answers or contact support. Make sure to review the terms and
+                    conditions before submitting your work."</p>
+            </div>
+        </div>
+
+
+
+
+
+        <script>
+            // Handle Image Upload
+            document.getElementById('image-file').addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                const previewContainer = document.getElementById('image-preview');
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = e.target.result;
+                        imgElement.alt = 'Uploaded Image';
+                        imgElement.classList.add('mx-auto', 'rounded-md', 'mt-4', 'max-w-full', 'object-cover');
+
+                        // Clear previous content and add the new image
+                        previewContainer.innerHTML = '<p class="mb-2">Image Preview:</p>';
+                        previewContainer.appendChild(imgElement);
+                    };
+
+                    reader.readAsDataURL(file);
+                } else {
+                    // Clear preview if no file or wrong type
+                    previewContainer.innerHTML = '<p class="mb-2">Image Preview:</p>';
+                }
+            });
+
+            // Handle Video Upload
+            document.getElementById('video-file').addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                const previewContainer = document.getElementById('video-preview');
+                if (file && file.type === 'video/mp4') {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        const videoElement = document.createElement('video');
+                        videoElement.src = e.target.result;
+                        videoElement.controls = true;
+                        videoElement.classList.add('mx-auto', 'rounded-md', 'mt-4', 'max-w-full', 'object-cover');
+
+                        // Clear previous content and add the new video
+                        previewContainer.innerHTML = '<p class="mb-2">Video Preview:</p>';
+                        previewContainer.appendChild(videoElement);
+                    };
+
+                    reader.readAsDataURL(file);
+                } else {
+                    // Clear preview if no file or wrong type
+                    previewContainer.innerHTML = '<p class="mb-2">Video Preview:</p>';
+                }
+            });
+        </script>
+</body>
+
+</html>

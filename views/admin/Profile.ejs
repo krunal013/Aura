@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile | TailAdmin - Tailwind CSS Admin Dashboard Template</title>
+</head>
+
+<body>
+    <%- include('userheader') %>
+        <%- include('sidebar') %>
+            <div class="pt-5 mt-0 bg-gray-900">
+                <main>
+                    <div
+                        class="p-4 block sm:flex items-center justify-between border-b border-gray-200 lg:mt-0 dark:bg-gray-900 dark:border-gray-700 ml-64">
+                        <div class=" bg-gray-900 mx-auto max-w-242.5">
+                            <!-- Breadcrumb Start -->
+                            <div
+                                class=" bg-gray-900 mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                            </div>
+                            <!-- Breadcrumb End -->
+
+                            <!-- ====== Profile Section Start -->
+                            <div>
+                                <div class="relative z-20 h-35 md:h-65 bg-gray-500">
+                                </div>
+                                <div class="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5 bg-gray-900">
+                                    <div
+                                        class="relative z-30 mx-auto -mt-22 h-0 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
+                                        <div class="relative drop-shadow-2 rounded-full overflow-hidden h-full w-full">
+                                            <img src="/images/uploads/<%= user.profileimage || 'static/default_profile.jpg' %>"
+                                                alt="profile" class="w-full h-full object-cover" />
+                                            <label for="profile"
+                                                class="absolute bottom-0 right-0 flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-primary text-white hover:bg-opacity-90 sm:bottom-2 sm:right-2">
+                                                <svg class="fill-current" width="14" height="14" viewBox="0 0 14 14"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M4.76464 1.42638C4.87283 1.2641 5.05496 1.16663 5.25 1.16663H8.75C8.94504 1.16663 9.12717 1.2641 9.23536 1.42638L10.2289 2.91663H12.25C12.7141 2.91663 13.1592 3.101 13.4874 3.42919C13.8156 3.75738 14 4.2025 14 4.66663V11.0833C14 11.5474 13.8156 11.9925 13.4874 12.3207C13.1592 12.6489 12.7141 12.8333 12.25 12.8333H1.75C1.28587 12.8333 0.840752 12.6489 0.512563 12.3207C0.184375 11.9925 0 11.5474 0 11.0833V4.66663C0 4.2025 0.184374 3.75738 0.512563 3.42919C0.840752 3.101 1.28587 2.91663 1.75 2.91663H3.77114L4.76464 1.42638ZM5.56219 2.33329L4.5687 3.82353C4.46051 3.98582 4.27837 4.08329 4.08333 4.08329H1.75C1.59529 4.08329 1.44692 4.14475 1.33752 4.25415C1.22812 4.36354 1.16667 4.51192 1.16667 4.66663V11.0833C1.16667 11.238 1.22812 11.3864 1.33752 11.4958C1.44692 11.6052 1.59529 11.6666 1.75 11.6666H12.25C12.4047 11.6666 12.5531 11.6052 12.6625 11.4958C12.7719 11.3864 12.8333 11.238 12.8333 11.0833V4.66663C12.8333 4.51192 12.7719 4.36354 12.6625 4.25415C12.5531 4.14475 12.4047 4.08329 12.25 4.08329H9.91667C9.72163 4.08329 9.53949 3.98582 9.4313 3.82353L8.43781 2.33329H5.56219Z"
+                                                        fill="" />
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7.00004 5.83329C6.03354 5.83329 5.25004 6.61679 5.25004 7.58329C5.25004 8.54979 6.03354 9.33329 7.00004 9.33329C7.96654 9.33329 8.75004 8.54979 8.75004 7.58329C8.75004 6.61679 7.96654 5.83329 7.00004 5.83329ZM4.08337 7.58329C4.08337 5.97246 5.38921 4.66663 7.00004 4.66663C8.61087 4.66663 9.91671 5.97246 9.91671 7.58329C9.91671 9.19412 8.61087 10.5 7.00004 10.5C5.38921 10.5 4.08337 9.19412 4.08337 7.58329Z"
+                                                        fill="" />
+                                                </svg>
+                                                <input type="file" name="profile" id="profile" class="sr-only" />
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <h3 class="mb-1.5 text-2xl font-medium text-black dark:text-white">
+                                            <%= user.fullname %>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ====== Profile Section End -->
+                        </div>
+                    </div>
+                    <div class="col-span-2">
+                        <div
+                            class="p-4  bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800 ml-64 ">
+                            <h3 class="mb-4 text-xl font-semibold dark:text-white">General information</h3>
+                            <form action="#">
+                                <div class="grid grid-cols-6 gap-6">
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="first-name"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User
+                                            Name</label>
+                                        <input type="text" name="first-name" id="first-name"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="<%= user.username %>" value="" required>
+                                    </div>
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="last-name"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full
+                                            Name</label>
+                                        <input type="text" name="last-name" id="last-name"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="<%= user.fullname %>" required>
+                                    </div>
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="country"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
+                                        <input type="text" name="country" id="country"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="India" required>
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="email"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                        <input type="email" name="email" id="email"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="<%= user.email %>" required>
+                                    </div>
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="phone-number"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
+                                            Number</label>
+                                        <input type="number" name="phone-number" id="phone-number"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="<%= user.mobileNumber%>" required>
+                                    </div>
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="birthday"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Birthday</label>
+                                        <input type="number" name="birthday" id="birthday"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="15/08/1990" required>
+                                    </div>
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="organization"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
+                                            Verified</label>
+                                        <input type="text" name="organization" id="organization"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="<%= user.emailVerified%>" required>
+                                    </div>
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="role"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Payment
+                                            Expires</label>
+                                        <input type="text" name="role" id="role"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="<%= user.paymentExpires%>" required>
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-full">
+                                        <button
+                                            class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                            type="submit">Save all</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="flex justify-between items-center">
+                                <% if (user.posts.length> 0) { %>
+                                    <h3 class="text-xl font-semibold dark:text-white">user upload posts..</h3>
+                                    <% } else { %>
+
+                                        <h3 class="text-xl font-semibold dark:text-white">Upload Posts & show Your
+                                            Creativity</h3>
+                                        <% } %>
+                            </div>
+                            <div class="max-h-96 hide-scrollbar overflow-y-auto space-y-4 p-4 dark:bg-gray-800 mt-4">
+                                <% if (user.posts.length> 0) { %>
+                                    <% user.posts.reverse().forEach(function(post) { %>
+                                        <div
+                                            class="flex items-center justify-between p-4 bg-gray-700 rounded-lg shadow-md">
+                                            <img src="/images/uploads/<%= post.image %>" alt="Image"
+                                                class="w-12 h-12 object-cover rounded-md">
+
+                                            <div
+                                                class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+                                                <div class="bg-gray-600 rounded-lg px-3 py-1 text-white">
+                                                    <i class="fas fa-clock"></i>
+                                                    <%= post.createdAt.toLocaleDateString() %>
+                                                </div>
+                                                <div class="bg-gray-600 rounded-lg px-3 py-1 text-white">
+                                                    <i class="far fa-heart text-red-600"></i>
+                                                    <%= post.likes.length %>
+                                                </div>
+                                                <div class="bg-gray-600 rounded-lg px-3 py-1 text-white">
+                                                    <i class="fas fa-arrow-circle-down"></i>
+                                                    <%= post.downloads %>
+                                                </div>
+                                            </div>
+
+                                            <form action="/admin/delete/<%= post._id %>" method="POST" class="ml-4">
+                                                <button type="submit"
+                                                    class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                        <% }) %>
+                                            <% } else { %>
+                                                <p class="text-white">You Haven't Posted any Content Yet</p>
+                                                <% } %>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </main>
+            </div>
+
+
+</body>
+
+</html>

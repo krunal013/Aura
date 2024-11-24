@@ -1,0 +1,208 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <title>Pinteresting | Gallery Layout</title>
+</head>
+<!-- A Simple non functional Pinterest inspired page layout created using only HTML and CSS.
+       Created by M. Hassler - Hassified -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+<link rel="stylesheet" href="/stylesheets/newfeed.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+
+
+<body>
+
+    <div class="header">
+        <img id="lgo" src="/images/lgo.png" class="icon pinterest-icon">
+        <ul class="navigation">
+            <li>Home</li>
+            <% if (users.hasPaid) { %>
+                <li style="color: goldenrod;">Events</li>
+                <% } else { %>
+                    <li style="color: #b0b0b0;"><i class="fas fa-lock" style="color: #b0b0b0;"></i> Events</li>
+                    <% } %>
+                        <button type="button" onclick="openModal('modelConfirm')">
+                            <li>Create Post <i class="fas fa-plus-circle" style="color: #454545;"></i></li>
+                        </button>
+        </ul>
+        <div id="mob">
+            <div id="mobimg">
+                <img src="/images/lgo.png" class="icon pinterest-icon">
+            </div>
+
+            <div id="mobsearch" class="search-bar">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt9xYbWTtHga6J2cSOP_kBIDnak4ko8VmD9w&s"
+                    class="search-icon">
+                <input type="text" placeholder="Search">
+            </div>
+            <div id="mobpro" class="profile">
+                <div class="img-box">
+                    <img src="/images/uploads/<%= users.profileimage%>" alt="some user image">
+                </div>
+            </div>
+        </div>
+        <div id="big">
+            <div class="search-bar">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt9xYbWTtHga6J2cSOP_kBIDnak4ko8VmD9w&s"
+                    class="search-icon">
+                <input type="text" placeholder="Search">
+            </div>
+        </div>
+        <!-- <div class="nav-icons">
+            <img src="https://uxwing.com/wp-content/themes/uxwing/download/communication-chat-call/bell-icon.png"
+                class="icon nav-icon">
+            <img src="https://uxwing.com/wp-content/themes/uxwing/download/communication-chat-call/speech-bubble-black-icon.png"
+                class="icon nav-icon">
+            <img src="https://uxwing.com/wp-content/themes/uxwing/download/arrow-direction/angle-bottom-icon.png"
+                class="icon nav-icon arrow-icon">
+        </div> -->
+        <div id="pro" class="profile">
+            <div class="user">
+                <h3>
+                    <%= users.fullname %>
+                </h3>
+                <p>@<%= users.username %>
+                </p>
+            </div>
+            <div class="img-box">
+                <img src="/images/uploads/<%= users.profileimage%>" alt="some user image">
+            </div>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="#"><i class="ph-bold ph-user"></i>&nbsp;Profile</a></li>
+                <hr>
+                <li><a href="#"><i class="ph-bold ph-envelope-simple"></i>&nbsp;Inbox</a></li>
+                <hr>
+                <li><a href="#"><i class="ph-bold ph-gear-six"></i>&nbsp;Settings</a></li>
+                <li><a href="#"><i class="ph-bold ph-question"></i>&nbsp;Help</a></li>
+                <li><a href="/logout"><i class="ph-bold ph-sign-out"></i>&nbsp;Sign Out</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="modelConfirm"
+        class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4">
+        <div class="relative top-40 mx-auto shadow-xl rounded-lg bg-white max-w-md">
+
+            <div class="flex justify-end p-2">
+                <button onclick="closeModal('modelConfirm')" type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="p-6 pt-0 text-center">
+                <img class="mx-auto block" src="/images/post.png" height="80px" width="80px" alt="">
+
+                <form action="/upload" method="post" enctype="multipart/form-data" class="max-w-md mx-auto">
+                    <div class="mt-4">
+                        <label for="file" class="block text-sm font-medium text-gray-700">Choose File</label>
+                        <input type="file" name="file" id="file"
+                            class="mt-1 px-4 py-2 focus:ring-indigo-500 text-gray-700 bg-gray-100 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+                    <div class="mt-4">
+                        <label for="filecaption" class="block text-sm font-medium text-gray-700">File Caption</label>
+                        <input type="text" name="filecaption" id="filecaption"
+                            class="mt-2 px-4 py-2 focus:ring-indigo-500 bg-gray-100 text-gray-700 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+                    <div class="mt-4">
+                        <label for="className" class="block text-sm font-medium text-gray-700">Image Class</label>
+                        <select name="className" id="className"
+                            class="mt-2 px-4 py-2 focus:ring-indigo-500 bg-gray-100 text-gray-700 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            <option value="all">All</option>
+                            <option value="intrested">Interested</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <br>
+                    <button type="submit"
+                        class="inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Upload
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="loader" id="loader"></div>
+    <div class="grid">
+
+
+        <% posts.forEach(function(elem){ %>
+            <div class="grid-item">
+                <img src="/images/uploads/<%= elem.image %>" alt="Post Image" />
+                <div class="overlay">
+                    <button class="save-btn">Save</button>
+                    <div class="profile-box">
+                        <div class="profile">
+                            <!-- Display the profile image of the user who created the post -->
+                            <img src="/images/uploads/<%= elem.user.profileimage %>" alt="Profile Image">
+                        </div>
+                        <!-- Display the username next to the profile image -->
+                        <span class="username">
+                            <%= elem.user.username %>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+
+
+
+
+    </div>
+
+    <script>
+        $('.grid').imagesLoaded(function () {
+            $('.grid').masonry({
+                itemSelector: '.grid-item',
+                columnWidth: '.grid-item',
+                percentPosition: true
+            });
+            $('.grid').fadeIn(); // Display grid after loading
+        });
+
+
+        $(document).ready(function () {
+            // Use imagesLoaded to detect when all images have loaded
+            $('.grid').imagesLoaded(function () {
+                // Hide the loader once images are loaded
+                $('#loader').fadeOut();
+
+                // Show the grid
+                $('.grid').fadeIn();
+            });
+        });
+
+        let profile = document.querySelector('.profile');
+        let menu = document.querySelector('.menu');
+
+        profile.onclick = function () {
+            menu.classList.toggle('active');
+        }
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html>

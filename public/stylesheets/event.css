@@ -1,0 +1,591 @@
+/* Base styles */
+
+:root {
+  --bg-light: #e0f7fa;
+  --bg-dark: rgb(13, 0, 22);
+  --text-light: #333;
+  --text-dark: #f0f0f0;
+  --button-bg-light: #0288d1;
+  --button-bg-dark: #00796b;
+  --button-text-light: #fff;
+  --button-text-dark: #fff;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: "Fredoka", "sans-serif";
+}
+
+/* .cta-button,
+.action-button {
+  background-color: var(--button-bg-light);
+  color: var(--button-text-light);
+} */
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* body.dark-mode .cta-button,
+body.dark-mode .action-button {
+  background-color: var(--button-bg-dark);
+  color: var(--button-text-dark);
+} */
+
+body.dark-mode .container {
+  background: rgb(41, 1, 67);
+  background: radial-gradient(
+    circle,
+    rgba(41, 1, 67, 1) 0%,
+    rgba(14, 0, 29, 1) 100%
+  );
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode h1 {
+  color: #80cbc4;
+}
+
+body.dark-mode .info {
+  color: #aaa;
+}
+
+/* From Uiverse.io by kamehame-ha */
+.cards {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.cards .red {
+  background-color: #b69800;
+}
+
+.cards .blue {
+  background-color: #949494;
+}
+
+.cards .green {
+  background-color: #a28862;
+}
+
+.cards .card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  height: 100px;
+  width: 250px;
+  border-radius: 25px;
+  color: white;
+  cursor: pointer;
+  transition: 400ms;
+}
+
+.cards .card p.tip {
+  font-size: 3em;
+  font-weight: 700;
+  color: #26013e;
+}
+
+.cards .card p.second-text {
+  font-size: 0.7em;
+}
+
+.cards .card:hover {
+  transform: scale(1.1, 1.1);
+}
+
+.cards:hover > .card:not(:hover) {
+  filter: blur(10px);
+  transform: scale(0.9, 0.9);
+}
+
+/* body.dark-mode .prize { */
+/* background-color: #37474f; */
+/* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 3D-like shadow for cards */
+/* } */
+
+/* body.dark-mode .prize h2 {
+  color: #ff5252;
+} */
+
+/* body.dark-mode .prize p {
+  color: #e0e0e0;
+} */
+
+body.dark-mode .footer-info {
+  color: #bbb;
+}
+
+body.dark-mode .testimonial {
+  background: rgb(61, 118, 132);
+  background: linear-gradient(
+    161deg,
+    rgba(61, 118, 132, 1) 0%,
+    rgba(45, 0, 65, 1) 72%
+  );
+  color: #80cbc4;
+}
+
+body.dark-mode cite {
+  color: #4fc3f7;
+}
+
+.container {
+  width: 80%;
+  max-width: 1200px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  padding: 30px;
+  margin-top: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.main-content {
+  max-width: 65%;
+  text-align: left;
+}
+
+.container h1 {
+  font-size: 3em;
+  color: #00796b;
+  margin-bottom: 20px;
+}
+
+/* .cta-button {
+  background-color: #0288d1;
+  border: none;
+  padding: 15px 25px;
+  color: #fff;
+  font-size: 1.2em;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 20px;
+} */
+/* From Uiverse.io by DrashtySoni */
+.mysec {
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 13rem;
+  /* margin-left: 100px; */
+  overflow: hidden;
+  height: 3rem;
+  background-size: 300% 300%;
+  backdrop-filter: blur(1rem);
+  border-radius: 5rem;
+  transition: 0.5s;
+  animation: gradient_301 5s ease infinite;
+  border: double 4px transparent;
+  background-image: linear-gradient(#212121, #212121),
+    linear-gradient(
+      137.48deg,
+      rgba(176, 176, 176, 0.5),
+      rgba(57, 0, 86, 0.5),
+      rgba(176, 176, 176, 0.5),
+      rgba(57, 0, 86, 0.5)
+    );
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  cursor: pointer;
+}
+
+#container-stars {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition: 0.5s;
+  backdrop-filter: blur(1rem);
+  border-radius: 5rem;
+}
+
+strong {
+  z-index: 2;
+  font-family: "Poppins" sans-serif;
+  font-size: 16px;
+  letter-spacing: 3px;
+  color: #ffffff;
+  text-shadow: 0 0 4px rgb(0, 0, 0);
+}
+
+#glow {
+  position: absolute;
+  display: flex;
+  width: 12rem;
+}
+
+.circle {
+  width: 100%;
+  height: 30px;
+  filter: blur(2rem);
+  animation: pulse_3011 4s infinite;
+  z-index: -1;
+}
+
+.circle:nth-of-type(1) {
+  background: rgba(0, 0, 1860 0.936);
+}
+
+.circle:nth-of-type(2) {
+  background: rgba(0, 0, 1860 0.936);
+}
+
+.btn:hover #container-stars {
+  z-index: 1;
+  background-color: #212121;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+.btn:active {
+  border: double 4px #fe53bb;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  animation: none;
+}
+
+.btn:active .circle {
+  background: #fe53bb;
+}
+
+#stars {
+  position: relative;
+  background: transparent;
+  width: 200rem;
+  height: 200rem;
+}
+
+#stars::after {
+  content: "";
+  position: absolute;
+  top: -10rem;
+  left: -100rem;
+  width: 100%;
+  height: 100%;
+  animation: animStarRotate 90s linear infinite;
+}
+
+#stars::after {
+  background-image: radial-gradient(#ffffff 1px, transparent 1%);
+  background-size: 50px 50px;
+}
+
+#stars::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 170%;
+  height: 500%;
+  animation: animStar 60s linear infinite;
+}
+
+#stars::before {
+  background-image: radial-gradient(#ffffff 1px, transparent 1%);
+  background-size: 50px 50px;
+  opacity: 0.5;
+}
+
+@keyframes animStar {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-135rem);
+  }
+}
+
+@keyframes animStarRotate {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0);
+  }
+}
+
+@keyframes gradient_301 {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse_3011 {
+  0% {
+    transform: scale(0.75);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.75);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+.event-image img {
+  display: block; /* Ensures there's no extra space below the image */
+  width: 150%; /* Adjust this percentage to make the image smaller */
+  margin-left: -10px;
+}
+
+.info {
+  font-size: 1.1em;
+  margin-bottom: 30px;
+  color: #666;
+}
+
+/* .prizes {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+} */
+
+/* .prize {
+  background-color: #b2ebf2;
+  padding: 15px;
+  border-radius: 40px 0px 40px;
+  width: 30%;
+  text-align: center;
+  box-sizing: border-box;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 3D-like effect for light mode
+  transition: transform 0.3s ease-in-out;
+} */
+
+/* .prize:hover {
+  transform: translateY(-10px);
+}
+
+.prize h2 {
+  font-size: 2em;
+  margin: 10px 0;
+  color: #d32f2f;
+}
+
+.prize p {
+  font-size: 1.5em;
+  margin: 0;
+  color: #333;
+} */
+
+.buttons {
+  margin-bottom: 30px;
+}
+
+.action-button {
+  background-color: #00796b;
+  border: none;
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 1.1em;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.footer-info {
+  font-size: 0.9em;
+  color: #888;
+}
+
+.side-content {
+  max-width: 30%;
+  text-align: left;
+}
+
+/* .testimonial {
+  background-color: #b2ebf2;
+  padding: 5px;
+  font-size: 0.6em;
+  border-radius: 10px;
+  color: #00796b;
+  transform: rotate(8deg); /* Initial rotation */
+/* transform-origin: top center; Makes the card rotate around the top center (like hanging on a screw) */
+/* animation: sway 3s ease-in-out infinite; Applies the hanging animation */
+/* } */
+
+@keyframes sway {
+  0% {
+    transform: rotate(8deg);
+  }
+  50% {
+    transform: rotate(6deg); /* Slightly rotate counter-clockwise */
+  }
+  100% {
+    transform: rotate(8deg); /* Back to the original rotation */
+  }
+}
+
+.testimonial p {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+cite {
+  display: block;
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: #0288d1;
+}
+
+.notification {
+  border: 2px wheat;
+
+  padding: 10px;
+  border-radius: 25px;
+}
+
+/* Media Queries for Responsiveness */
+
+/* For tablets (portrait) and larger phones */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    /* padding: 10px; */
+  }
+  .container h1 {
+    text-align: right;
+    font-size: 30px;
+  }
+  .main-content {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .event-image img {
+    display: block; /* Ensures there's no extra space below the image */
+    width: 50%; /* Adjust this percentage to make the image smaller */
+    margin-left: 65px;
+  }
+
+  .buttons {
+    margin-bottom: 30px;
+    margin-left: 55px;
+  }
+  /* 
+  .prizes {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .prize {
+    width: 80%;
+    margin-bottom: 20px;
+  } */
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+  }
+  .side-content {
+    max-width: 100%;
+    margin-top: 20px;
+  }
+
+  .testimonial {
+    text-align: center;
+  }
+}
+
+/* For phones (portrait) */
+@media (max-width: 480px) {
+  body {
+    display: block;
+    padding: 10px;
+  }
+
+  .main-content {
+    max-width: 100%;
+    text-align: center;
+  }
+  .container {
+    width: 100%;
+    padding: 55px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .mysec {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* .cta-button {
+    font-size: 1em;
+    padding: 10px 20px;
+  } */
+
+  /* .prize h2 {
+    font-size: 1.5em;
+  }
+
+  .prize p {
+    font-size: 1.2em;
+  } */
+
+  .action-button {
+    font-size: 1em;
+    padding: 8px 16px;
+  }
+
+  .footer-info {
+    font-size: 0.8em;
+  }
+
+  .testimonial p {
+    font-size: 1em;
+  }
+
+  cite {
+    font-size: 0.8em;
+  }
+}
